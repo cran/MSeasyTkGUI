@@ -10,6 +10,10 @@
 \alias{dialog.MS.DataCreation.user}
 \alias{dialog.MS.step1}
 \alias{dialog.MS.step2}
+\alias{dialog.MS.step3}
+\alias{dialog.MS.aristo}
+\alias{dialog.MS.msp}
+\alias{dialog.MS.nist}
 \title{Internal functions for the MSeasyTkGUI package.}
 \description{
 Internal functions for the MSeasyTkGUI package

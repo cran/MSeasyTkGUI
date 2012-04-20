@@ -32,6 +32,11 @@ assign("DemoFlag", 1, envir=.GlobalEnv)
 choosepackage()
 }
 
+demodialog.MS.DataCreation.CDF<-function(){
+assign("DemoFlag", 1, envir=.GlobalEnv)
+dialog.MS.DataCreation.CDF()
+}
+
 demodialog.MS.DataCreation.Agilent<-function(){
 assign("DemoFlag", 1, envir=.GlobalEnv)
 dialog.MS.DataCreation.Agilent()
@@ -51,7 +56,18 @@ demodialog.MS.clust<-function(){
 assign("DemoFlag", 1, envir=.GlobalEnv)
 dialog.MS.clust()
 }
-
+demodialog.MS.aristo<-function(){
+assign("DemoFlag", 1, envir=.GlobalEnv)
+dialog.MS.aristo()
+}
+demodialog.MS.msp<-function(){
+assign("DemoFlag", 1, envir=.GlobalEnv)
+dialog.MS.msp()
+}
+demodialog.MS.nist<-function(){
+assign("DemoFlag", 1, envir=.GlobalEnv)
+dialog.MS.nist()
+}
 demobutton<-function(){
 assign("DemoFlag", 1, envir=.GlobalEnv)
 dialog.MS.demon()
@@ -69,7 +85,10 @@ nodialog.MS.step2<-function(){
 if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
 dialog.MS.step2()
 }
-
+nodialog.MS.step3<-function(){
+if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+dialog.MS.step3()
+}
 nodialog.MS.DataCreation.user<-function(){
 if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
 dialog.MS.DataCreation.user()
@@ -112,10 +131,11 @@ dialog.MS.clust()
 	tkconfigure(topMenuMSeasy, menu=MSeasyMenu)
 	
 	openRecentMenu <- tkmenu(topMenuMSeasy,tearoff=FALSE)
-		tkadd(openRecentMenu,"command",label="Agilent Files(.D folders)",    command=function() nodialog.MS.DataCreation.Agilent())
+		tkadd(openRecentMenu,"command",label="CDF or mzXML files and peaklist.txt",	command=function() nodialog.MS.DataCreation.CDF())
+		tkadd(openRecentMenu,"command",label="CDF and rteres.txt (Agilent Technologies)",    command=function() nodialog.MS.DataCreation.Agilent())
 		tkadd(openRecentMenu,"command",label="ASCII Files",	command=function() nodialog.MS.DataCreation.ASCII())
-		tkadd(openRecentMenu,"command",label="User made Files (.txt .csv...)",	command=function() nodialog.MS.DataCreation.user())
-		tkadd(openRecentMenu,"command",label="CDF or XML Files (xcms needed)",	command=function() nodialog.MS.DataCreation.CDF())
+		tkadd(openRecentMenu,"command",label="User made Files",	command=function() nodialog.MS.DataCreation.user())
+		
 	
 	openRecentMenu1 <- tkmenu(topMenuMSeasy,tearoff=FALSE)
 		tkadd(openRecentMenu1,"command",label="MS.clust",    command=function() nodialog.MS.clust())
@@ -123,14 +143,26 @@ dialog.MS.clust()
 	
 	openRecentMenu2 <- tkmenu(topMenuMSeasy,tearoff=FALSE)
 		tkadd(openRecentMenu2,"command",label="Load an MSeasy demo Dataset",    command=function() demochoose())
+		tkadd(openRecentMenu2,"command",label="MS.DataCreation (CDF)",    command=function() demodialog.MS.DataCreation.CDF())
 		tkadd(openRecentMenu2,"command",label="MS.DataCreation (Agilent)",    command=function() demodialog.MS.DataCreation.Agilent())
 		tkadd(openRecentMenu2,"command",label="MS.DataCreation (ASCII)",	command=function() demodialog.MS.DataCreation.ASCII())
 		tkadd(openRecentMenu2,"command",label="MS.test.clust",	command=function() demodialog.MS.test.clust())
 		tkadd(openRecentMenu2,"command",label="MS.clust",	command=function() demodialog.MS.clust())
+		tkadd(openRecentMenu2,"command",label="MSeasyToARISTO",command=function()demodialog.MS.aristo())
+		tkadd(openRecentMenu2,"command",label="MSeasyToMSP",command=function()demodialog.MS.msp())
+		tkadd(openRecentMenu2,"command",label="SearchNIST",command=function()demodialog.MS.nist())
+	
+	
+	openRecentMenu3 <- tkmenu(topMenuMSeasy,tearoff=FALSE)
+		tkadd(openRecentMenu3,"command",label="MSeasyToARISTO",    command=function() dialog.MS.aristo())
+		tkadd(openRecentMenu3,"command",label="MSeasyToMSP",    command=function() dialog.MS.msp())
+		tkadd(openRecentMenu3,"command",label="SearchNIST",   command=function() dialog.MS.nist())
 		
-	tkadd(MSeasyMenu,"cascade",label="Step1-MS Data formatting...",menu=openRecentMenu)
+	tkadd(MSeasyMenu,"cascade",label="Step1-GC-MS Data formatting...",menu=openRecentMenu)
 	tkadd(MSeasyMenu,"separator")	
-	tkadd(MSeasyMenu,"cascade",label="Step2-MS Data clustering...",menu=openRecentMenu1)
+	tkadd(MSeasyMenu,"cascade",label="Step2-Mass spectra clustering...",menu=openRecentMenu1)
+	tkadd(MSeasyMenu,"separator")	
+	tkadd(MSeasyMenu,"cascade",label="Step3-Export to NIST or ARISTO...",menu=openRecentMenu3)
 	tkadd(MSeasyMenu,"separator")	
 	tkadd(MSeasyMenu,"cascade",label="Demonstration",menu=openRecentMenu2)
 	tkadd(MSeasyMenu,"separator")
@@ -142,12 +174,20 @@ dialog.MS.clust()
 	tkadd(MSeasyMenu,"command",label="MSeasy(Help)",command=function()print(help("MSeasy")) )
 	tkadd(MSeasyMenu,"command",label="trans.ASCII (Help)",command=function()print(help("trans.ASCII")) )
 	tkadd(MSeasyMenu,"command",label="MS.DataCreation (Help)",command=function()print(help("MS.DataCreation")) )
-	tkadd(MSeasyMenu,"command",label="MS.DataCreationCDF (Help)",command=function()print(help("MS.DataCreationCDF")) )
 	tkadd(MSeasyMenu,"command",label="MS.test.clust (Help)",command=function()print(help("MS.test.clust")) )
 	tkadd(MSeasyMenu,"command",label="MS.clust (Help)",command=function()print(help("MS.clust")) )
+	tkadd(MSeasyMenu,"command",label="MSeasyToARISTO (Help)",command=function()print(help("MSeasyToARISTO")) )
+	tkadd(MSeasyMenu,"command",label="MSeasyToMSP (Help)",command=function()print(help("MSeasyToMSP")) )
+	tkadd(MSeasyMenu,"command",label="SearchNIST (Help)",command=function()print(help("SearchNIST")) )
 	
+	topMenuURL <- tkmenubutton(frame0, text="Links", background="grey")
+	MSeasyMenu <- tkmenu(topMenuURL, tearoff=TRUE)
+	tkconfigure(topMenuURL, menu=MSeasyMenu)
+	tkadd(MSeasyMenu,"command",label="MSeasy web site",command=function()shell.exec("http://sites.google.com/site/rpackagemseasy/") )
+	tkadd(MSeasyMenu,"command",label="NIST ms search web site",command=function()shell.exec("http://chemdata.nist.gov/mass-spc/ms-search/") )
+	tkadd(MSeasyMenu,"command",label="ARISTO web site",command=function()shell.exec("http://www.ionspectra.org/aristo/") )
 	
-	tkpack(topMenuMSeasy,topMenuHelp,side="left")
+	tkpack(topMenuMSeasy,topMenuHelp,topMenuURL,side="left")
 	tkpack(frame0, expand="TRUE", fill="x")
 #
 # title and icons
@@ -169,7 +209,7 @@ dialog.MS.clust()
 #
 	frame1b <- tkframe(tt,  borderwidth=2, background="white")
 	tkpack(tklabel(frame1b,text="- MSeasy -", font="Times 12", foreground="blue", background="white"))	
-	step1.but <- tkbutton(frame1b, text="Step1- MS Data formatting", command=function() nodialog.MS.step1())
+	step1.but <- tkbutton(frame1b, text="Step1- GC-MS Data formatting",width=20,  command=function() nodialog.MS.step1())
 	
 	tkpack(step1.but,ipadx=25, side="bottom", expand="TRUE")
 	tkpack(frame1b, expand="TRUE", fill="x")
@@ -181,19 +221,28 @@ dialog.MS.clust()
 # MSeasy Step 2 button
 #
 	frame2 <- tkframe(tt,  borderwidth=2, background="white")
-	step2.but <- tkbutton(frame2, text="Step2- MS Data clustering  ", command=function() nodialog.MS.step2())
+	step2.but <- tkbutton(frame2, text="Step2- Mass spectra clustering", width=20, command=function() nodialog.MS.step2())
 	
 	tkpack(step2.but,ipadx=25, side="top", expand="TRUE")
 	tkpack(frame2, expand="TRUE", fill="x")
 	
 	tkbind(step2.but, "<Button-3>", function() print(help("MS.clust")))
+#
+# MSeasy Step 3 button
+#
+	frame2 <- tkframe(tt,  borderwidth=2, background="white")
+	step2.but <- tkbutton(frame2, text="Step3- Export to ARISTO or NIST", width=20,command=function() nodialog.MS.step3())
 	
+	tkpack(step2.but,ipadx=25, side="top", expand="TRUE")
+	tkpack(frame2, expand="TRUE", fill="x")
+	
+	tkbind(step2.but, "<Button-3>", function() print(help("MS.clust")))	
 #
 # MSeasy Demo button
 #
 	frame3 <- tkframe(tt, relief="groove", borderwidth=2, background="white")
 	tkpack(tklabel(frame3,text="- Demonstration -", font="Times 12", foreground="blue", background="white"))
-	demon.but <- tkbutton(frame3, text="Demonstration", command=function() demobutton())
+	demon.but <- tkbutton(frame3, text="Demonstration", width=20, command=function() demobutton())
 	
 	tkpack(demon.but,ipadx=25, side="top", expand="TRUE")
 	tkpack(frame3, expand="TRUE", fill="x")

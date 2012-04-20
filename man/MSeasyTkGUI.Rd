@@ -15,20 +15,21 @@ MSeasyTkGUI()
 }
 
 \details{
-Right-click on MSeasy function buttons to get help on these functions.
-You can also click on the questionhead icon in the dialog windows.
-This displays the R help for the corresponding function.\cr
+Right-click on MSeasy function buttons to get help on functions.
+You can also click on the questionhead icon in the dialog windows,
+this will displays the R help for the corresponding function.\cr
 
-In all dialog windows, entries can either be filled with a "\code{set}" button, or typed
+In all dialog windows, entries can either be filled with a "\code{set, choose...}" button, or typed
 directly in the entry field. The "\code{set}" button displays a listbox with a list
-of available objects in the global environment. 
+of available objects in the global environment. The "\code{Choose file}" button displays a browser. 
 }
 
 \section{Buttons}{
 
 The first row of buttons (\code{- MSeasy -}) is used to format MS data (\code{Step 1- ...}) prior to the clustering (\code{Step 2- ...}),
 either from a tab-delimited text file exported from Excel (\code{User made file}), 
-or from raw MS data files (\code{Agilent or ASCII files};  
+or from raw MS data files (\code{CDF, Agilent or ASCII files};  
+\code{Step 3- ...} will give you access to export functions (to ARISTO format or NIST).
 right-click on the button to get help and for details on MS data format).\cr
 
 The second block of buttons (\code{- Demonstration -}) gives access to \code{MSeasy} test datasets (\code{DataTest or DataClust}) by \code{Load an MSeasy dataset} or to predifined exemples of the MSeasy functions

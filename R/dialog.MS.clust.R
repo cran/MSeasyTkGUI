@@ -37,8 +37,8 @@ if (exists("DemoFlag")) {
 # Checkboxes
 #
 
-	scannfvar <- tclVar(1)
-	quantnfvar <- tclVar(1)  #for quant=TRUE/FALSE option in MS.Clust with Agilent files
+	scannfvar <- tclVar(0)
+	quantnfvar <- tclVar(0)  #for quant=TRUE/FALSE option in MS.Clust with Agilent files
 #
 # liste
 #	
@@ -131,7 +131,7 @@ if (exists("DemoFlag")) {
 	tkgrid(tklabel(clVFrame,text="ncmin : "), ncmin.entry,tklabel(clVFrame,text="     ncmax : "),ncmax.entry,sticky="e")
 	tkgrid(tklabel(clVFrame,text="IF No", foreground="red"), columnspan=2, sticky="w")
 	
-	tkgrid(tklabel(clVFrame,text="Number of cluster (Nbc) : "), nctot.entry, sticky="e")
+	tkgrid(tklabel(clVFrame,text="Number of clusters (Nbc) : "), nctot.entry, sticky="e")
 	tkgrid(clVFrame, sticky="we")
 	tkgrid(listFrame, sticky="we")
 
@@ -197,7 +197,7 @@ modify_command1 <- function() {
 # varRT (accepted shift in RT)
 #	
 	varRTFrame <- tkframe(tt, relief="groove", borderwidth=2)
-	tkgrid(tklabel(varRTFrame,text="                       - Quality controls of the clustering -", foreground="blue"), columnspan=2)
+	tkgrid(tklabel(varRTFrame,text="                       - Quality controls of putative molecules -", foreground="blue"), columnspan=2)
 	varRT.entry <- tkentry(varRTFrame, textvariable=varRTvar, width=4, state="normal")
 	tkgrid(tklabel(varRTFrame,text="Accepted shift in RT/RI (min) : "), varRT.entry, sticky="w")
 	
@@ -212,7 +212,7 @@ modify_command1 <- function() {
 #	
 	quantFrame <- tkframe(tt, relief="groove", borderwidth=2)
 	tkgrid(tklabel(quantFrame,text="                       - Additional output -", foreground="blue"), columnspan=2)
-	quantnf.cbut <- tkcheckbutton(quantFrame,text="Check box to add AREA information in outputs", variable=quantnfvar )
+	quantnf.cbut <- tkcheckbutton(quantFrame,text="Check box to add quantification measures of peak size (->profiling matrix)", variable=quantnfvar )
 	tkgrid(quantnf.cbut, sticky="we", columnspan=2)
 	tkgrid(quantFrame, sticky="we", columnspan=2)
 
@@ -322,7 +322,7 @@ modify_command1 <- function() {
 	#
 		
 		mydudi <- eval.parent(cmd)
-       
+        #bringToTop(which=-1)
 		assign(eval(dudiname), mydudi, pos=1)
 	
 	}
@@ -349,17 +349,15 @@ modify_command1 <- function() {
 		Sys.sleep(0.5)
 		print("...")
 		setTkProgressBar(mbox, .15, title ="R progress bar", label = "Processing ...")	
-			tkfocus(tt)
-		
+		tkfocus(tt)
+		tkdestroy(tt)
 		
 		setTkProgressBar(mbox, 1, title = "100% Done", label = "100% Done")
 		Sys.sleep(0.5)
 		close(mbox)
-		
 		tkmessageBox(title="Done",message= "Done",icon="info",type="ok")
-		tclvalue(done)<-2
-		if(tclvalue(done)=="2") return()
 		tkdestroy(tt)
+		#if (tclvalue(scannfvar)==1)return(0)
 	}
 #
 # Reset Cancel and Submit buttons

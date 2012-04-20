@@ -2,11 +2,11 @@
 # Part of the code is based on the ade4TkGUI package by Jean Thioulouse <jthioulouse@biomserv.univ-lyon1.fr>, Stephane
 #       Dray <dray@biomserv.univ-lyon1.fr>
 #
-dialog.MS.step2 <-
+dialog.MS.step3 <-
 function()
 {
 	tf <- tktoplevel()
-	tkwm.title(tf,"Step2- Mass spectra clustering ")
+	tkwm.title(tf,"Step3- Export results to... ")
 	
 	done <- tclVar(0)
 	sepVar <- tclVar(1)
@@ -18,30 +18,32 @@ function()
 	{	
 		
 		sep <- tclvalue(sepVar)
-		if (sep == 1) sepch <- "clust"
-		if (sep == 2) sepch <- "test.clust"
+		if (sep == 1) sepch <- "aristo"
+		if (sep == 2) sepch <- "msp"
+		if (sep == 3) sepch <- "nist"
+		
 	
 		
 
 			rdcom <- paste("dialog.MS.", sepch, "()",sep="")
 		
 			eval(parse(text=rdcom), envir=.GlobalEnv)
-		tkdestroy(tf)
+		    tkdestroy(tf)
 		
 	}
 	
 	frame1 <- tkframe(tf, relief="groove", borderwidth=2)
 	labh <- tklabel(frame1, bitmap="questhead")
-	tkbind(labh, "<Button-1>", function() print(help("MS.DataCreation")))
-	tkgrid(tklabel(frame1,text="Step2- Mas spectra clustering", font="Times 18", foreground="red"), labh, columnspan=2)
+	tkbind(labh, "<Button-1>", function() print(help("MSeasy")))
+	tkgrid(tklabel(frame1,text="Step3- Export results to...", font="Times 18", foreground="red"), labh, columnspan=2)
 	tkpack(frame1, fill = "x")
 
 		
 	sepFrame <- tkframe(tf, relief="groove", borderwidth=2)
     tkgrid(tklabel(sepFrame, text="Options:", foreground="blue"))
-    tkgrid(tkradiobutton(sepFrame, text="MS.clust", value=1, variable=sepVar), sticky="w")
-    tkgrid(tkradiobutton(sepFrame, text="MS.test.clust", value=2, variable=sepVar), sticky="w")
-    
+    tkgrid(tkradiobutton(sepFrame, text="ARISTO format", value=1, variable=sepVar), sticky="w")
+    tkgrid(tkradiobutton(sepFrame, text="MSP format (for NIST)", value=2, variable=sepVar), sticky="w")
+    tkgrid(tkradiobutton(sepFrame, text="Search NIST (Windows only!)", value=3, variable=sepVar), sticky="w")
 	tkpack(sepFrame, fill = "x")
 	
     

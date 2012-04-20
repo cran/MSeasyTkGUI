@@ -12,8 +12,8 @@ manly based on code from ade4TkGUI
 \tabular{ll}{
 Package: \tab MSeasyTkGUI\cr
 Type: \tab Package\cr
-Version: \tab 5.2\cr
-Date: \tab 2011-09-06\cr
+Version: \tab 5.3\cr
+Date: \tab 2012-04-12\cr
 License: \tab GPL-2\cr
 LazyLoad: \tab yes\cr
 }
@@ -21,7 +21,7 @@ LazyLoad: \tab yes\cr
 }
 \author{
 Yann Guitton
-Maintainer: Yann Guitton <yann.guitton@univ-st-etienne.fr>
+Maintainer: Yann Guitton <yann.guitton@gmail.com>
 
 }
 \references{

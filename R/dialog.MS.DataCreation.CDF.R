@@ -7,21 +7,29 @@ function()
 {
 	if (exists("DemoFlag")) {
 	#
-	tkmessageBox(title="Launch Demonstration",message="To launch the demonstration as is, \n just click on the Submit button \n in the next window",icon="info",type="ok")
+	tkmessageBox(title="Launch Demonstration",message="To launch the demonstration as is, \n just click on the Submit button \n in the next window \n If needed examples files will be downloaded from internet \n this may take a minute",icon="info",type="ok")
 	op=options()
 	options(warn=-1)
 #
 # Main dialog window with title
 #
 	tt <- tktoplevel()
-	tkwm.title(tt,"MS.DataCreation from Agilent with CDF or XML files")	
+	tkwm.title(tt,"MS.DataCreation CDF or mzXML files and peaklist.txt")	
 #
 # Variables for text fields
 #
-	pathdemo<-paste(system.file("doc/Agilent_MSDataCreation",package="MSeasy"),"/", sep="")
+#check if examples are present
+if(file.exists(file.path(getwd(),"CDF_peaklist"))==FALSE){
+url1<-"http://sites.google.com/site/rpackagemseasy/downloads/CDF_peaklist_example.zip"
+download.file(url=url1, destfile="ExampleCDF.zip")
+print(paste("The CDF_peaklist example folder have been downloaded in ", getwd(), sep=" "))
+unzip(zipfile="ExampleCDF.zip", exdir=".") 
+unlink("ExampleCDF.zip")
+}
+	pathdemo<-paste(file.path(getwd(),"CDF_peaklist"),sep="")
 	rbValue <- tclVar()
 	dirvar <- tclVar(pathdemo)
-	outvar <- tclVar("Out_Agilentdemo")
+	outvar <- tclVar("Out_CDFdemo")
 	
 	
 #
@@ -33,7 +41,7 @@ function()
 #
 # Checkboxes
 #
-
+	mznfvar <- tclVar(0)
 	quantnfvar <- tclVar(1)  #for quant=TRUE/FALSE option in MS.Clust with Agilent files
 
 	}
@@ -45,7 +53,7 @@ function()
 # Main dialog window with title
 #
 	tt <- tktoplevel()
-	tkwm.title(tt,"MS.DataCreation from Agilent ")	
+	tkwm.title(tt,"MS.DataCreation CDF or mzXML files and peaklist.txt")	
 #
 # Variables for text fields
 #
@@ -62,7 +70,7 @@ function()
 #
 # Checkboxes
 #
-
+	mznfvar <- tclVar(0)
 	quantnfvar <- tclVar(1)  #for quant=TRUE/FALSE option in MS.Clust with Agilent files
 }
 
@@ -71,7 +79,7 @@ function()
 #
 	TFrame <- tkframe(tt, relief="groove")
 	labh <- tklabel(TFrame, bitmap="questhead")
-	tkgrid(tklabel(TFrame,text="Data Creation from Agilent", font="Times 18", foreground="red"), labh)
+	tkgrid(tklabel(TFrame,text="Data Creation from CDF or mzXML files and peaklist.txt", font="Times 18", foreground="red"), labh)
 	tkbind(labh, "<Button-1>", function() print(help("MS.DataCreation")))
 	tkgrid(TFrame)
 #
@@ -81,8 +89,8 @@ function()
 	tkgrid(tklabel(IOFrame,text="- MS.DataCreation Input & Output  files -", foreground="blue"), columnspan=5)
 	MS.DataCreation.entry <- tkentry(IOFrame, textvariable=outvar)
 	dir.entry <- tkentry(IOFrame, textvariable=dirvar)
-	choosedir.but <- tkbutton(IOFrame, text="Set path", command=function() tkinsert(dir.entry, "end", tclvalue(tkchooseDirectory())))
-	tkgrid(tklabel(IOFrame,text="Data path : "), dir.entry, choosedir.but, sticky="w")
+	choosedir.but <- tkbutton(IOFrame, text="Set path with CDF files \n  and peaklist.txt",command=function() tkinsert(dir.entry, "end", tclvalue(tkchooseDirectory())))
+	tkgrid(tklabel(IOFrame,text="Data path (pathCDF) : "), dir.entry, choosedir.but, sticky="w")
 	tkgrid(tklabel(IOFrame,text="Output name : "), MS.DataCreation.entry, sticky="w")
 	tkgrid(IOFrame, sticky="we")
 #
@@ -90,6 +98,9 @@ function()
 #
 	MZFrame <- tkframe(tt, relief="groove", borderwidth=2)
 	tkgrid(tklabel(MZFrame,text="- Range of mass fragments -", foreground="blue"), columnspan=2)
+	scannf.cbut <- tkcheckbutton(MZFrame,text="Check for all mz", variable=mznfvar,
+		command=function() if (tclvalue(mznfvar)==1) {tkconfigure(mzmin.entry, state="disabled") ; tkconfigure(mzmax.entry, state="disabled")}else {tkconfigure(mzmin.entry, state="normal") ; tkconfigure(mzmax.entry, state="normal")})
+	tkgrid(scannf.cbut, sticky="we", columnspan=2)
 	mzmin.entry <- tkentry(MZFrame, textvariable=mzminvar, width=4, state="normal")
 	mzmax.entry <- tkentry(MZFrame, textvariable=mzmaxvar, width=4, state="normal")
 	tkgrid(tklabel(MZFrame,text="mz (min) : "), mzmin.entry,tklabel(MZFrame,text="mz (max) : "),mzmax.entry, sticky="w")
@@ -114,7 +125,7 @@ function()
 #	
 	quantFrame <- tkframe(tt, relief="groove", borderwidth=2)
 	tkgrid(tklabel(quantFrame,text="                       - Additional output -", foreground="blue"), columnspan=2)
-	quantnf.cbut <- tkcheckbutton(quantFrame,text="Check box to add AREA information in outputs", variable=quantnfvar )
+	quantnf.cbut <- tkcheckbutton(quantFrame,text="Check box to add quantification measures of peak size (->profiling matrix)", variable=quantnfvar )
 	tkgrid(quantnf.cbut, sticky="we", columnspan=2)
 	tkgrid(quantFrame, sticky="we", columnspan=2)
 	
@@ -145,7 +156,17 @@ function()
 	"execcomp" <- function()
 	{
 	path<-as.character(tclvalue(dirvar))
+	if (path=="" ||is.null(path)==TRUE){
+		
+		path<-tclvalue(tkchooseDirectory(title="Choose a folder with CDF and peaklist.txt files in separate subfolders"))
+	}
+	if (tclvalue(mznfvar)==1){
+	mz<-NULL
+	}
+	else
+	{
 	mz<-tclvalue(mzminvar):tclvalue(mzmaxvar)
+	}
 	apex<-tclvalue(rbValue)
    # Check that the analysis name is not empty and get it
 	#
@@ -158,22 +179,22 @@ function()
 	if (tclvalue(quantnfvar)==1) {
 		if (apex=="0"){
 			
-			assign(tclvalue(outvar), MS.DataCreationCDF(path=path,mz=mz,apex=TRUE, quant=TRUE), envir=.GlobalEnv)
+			assign(tclvalue(outvar), MS.DataCreation(pathCDF=path,mz=mz,apex=TRUE, quant=TRUE), envir=.GlobalEnv)
 			tkmessageBox(title="check",message= "Done",icon="info",type="ok")
 		}else{
 			
-			assign(tclvalue(outvar), MS.DataCreationCDF(path=path,mz=mz,apex=FALSE, quant=TRUE), envir=.GlobalEnv)
+			assign(tclvalue(outvar), MS.DataCreation(pathCDF=path,mz=mz,apex=FALSE, quant=TRUE), envir=.GlobalEnv)
 			tkmessageBox(title="Done",message= "Done",icon="info",type="ok")
 		}
 		}
 		else{
 		if (apex=="0"){
 			
-			assign(tclvalue(outvar), MS.DataCreationCDF(path=path,mz=mz,apex=TRUE, quant=FALSE), envir=.GlobalEnv)
+			assign(tclvalue(outvar), MS.DataCreation(pathCDF=path,mz=mz,apex=TRUE, quant=FALSE), envir=.GlobalEnv)
 			tkmessageBox(title="check",message= "Done",icon="info",type="ok")
 		}else{
 			
-			assign(tclvalue(outvar), MS.DataCreationCDF(path=path,mz=mz,apex=FALSE, quant=FALSE), envir=.GlobalEnv)
+			assign(tclvalue(outvar), MS.DataCreation(pathCDF=path,mz=mz,apex=FALSE, quant=FALSE), envir=.GlobalEnv)
 			tkmessageBox(title="Done",message= "Done",icon="info",type="ok")
 		}
 		}

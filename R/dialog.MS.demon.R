@@ -23,6 +23,9 @@ function()
 		if (sep == 3) sepch <- "MS.DataCreation.ASCII"
 		if (sep == 4) sepch <- "MS.test.clust"
 		if (sep == 5) sepch <- "MS.clust"
+		if (sep == 6) sepch <- "MS.aristo"
+		if (sep == 7) sepch <- "MS.msp"
+		if (sep == 8) sepch <- "MS.nist"
 		
 			if (sep==1){
 				eval(choosepackage())
@@ -50,6 +53,9 @@ function()
     tkgrid(tkradiobutton(sepFrame, text="MS.DataCreation (ASCII)         ", value=3, variable=sepVar), sticky="w")
     tkgrid(tkradiobutton(sepFrame, text="MS.test.clust                   ", value=4, variable=sepVar), sticky="w")
 	tkgrid(tkradiobutton(sepFrame, text="MS.clust                        ", value=5, variable=sepVar), sticky="w")
+	tkgrid(tkradiobutton(sepFrame, text="MSeasyToARISTO                        ", value=6, variable=sepVar), sticky="w")
+	tkgrid(tkradiobutton(sepFrame, text="MSeasyToMSP                        ", value=7, variable=sepVar), sticky="w")
+	tkgrid(tkradiobutton(sepFrame, text="SearchNIST (Only for Windows)                       ", value=8, variable=sepVar), sticky="w")
 	tkpack(sepFrame, fill = "x")
 	
     

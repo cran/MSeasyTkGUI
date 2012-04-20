@@ -4,7 +4,7 @@
   #tkdestroy(commanderWindow)
 
   MSeasyTkGUI()
-  cat("\nGUI for MSeasy is loaded\n")
+  packageStartupMessage("initializing ...", appendLF = FALSE)
 }
 
 
