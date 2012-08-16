@@ -171,7 +171,7 @@ unlink("AgilentCDF.zip")
 	apex<-tclvalue(rbValue)
    # Check that the analysis name is not empty and get it
 	#
-		if (tclvalue(outvar) == "") tkinsert(MS.DataCreation.entry, "end", "untitled1")
+		if (tclvalue(outvar1) == "") tkinsert(MS.DataCreation.entry, "end", "initial_DATA")
 		dudiname <- parse(text=paste("\"",tclvalue(outvar)[[1]],"\"",sep=""))
 		
 	print("Processing...")
@@ -180,22 +180,22 @@ unlink("AgilentCDF.zip")
 	if (tclvalue(quantnfvar)==1) {
 		if (apex=="0"){
 			
-			assign(tclvalue(outvar), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=TRUE, quant=TRUE), envir=.GlobalEnv)
+			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=TRUE, quant=TRUE), envir=.GlobalEnv)
 			tkmessageBox(title="check",message= "Done",icon="info",type="ok")
 		}else{
 			
-			assign(tclvalue(outvar), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=FALSE, quant=TRUE), envir=.GlobalEnv)
+			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=FALSE, quant=TRUE), envir=.GlobalEnv)
 			tkmessageBox(title="Done",message= "Done",icon="info",type="ok")
 		}
 		}
 		else{
 		if (apex=="0"){
 			
-			assign(tclvalue(outvar), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=TRUE, quant=FALSE), envir=.GlobalEnv)
+			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=TRUE, quant=FALSE), envir=.GlobalEnv)
 			tkmessageBox(title="check",message= "Done",icon="info",type="ok")
 		}else{
 			
-			assign(tclvalue(outvar), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=FALSE, quant=FALSE), envir=.GlobalEnv)
+			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=FALSE, quant=FALSE), envir=.GlobalEnv)
 			tkmessageBox(title="Done",message= "Done",icon="info",type="ok")
 		}
 		}

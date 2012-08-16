@@ -170,7 +170,7 @@ unlink("ExampleCDF.zip")
 	apex<-tclvalue(rbValue)
    # Check that the analysis name is not empty and get it
 	#
-		if (tclvalue(outvar) == "") tkinsert(MS.DataCreation.entry, "end", "untitled1")
+		if (tclvalue(outvar) == "") tkinsert(MS.DataCreation.entry, "end", "initial_DATA")
 		dudiname <- parse(text=paste("\"",tclvalue(outvar)[[1]],"\"",sep=""))
 		
 	print("Processing...")

@@ -1,4 +1,4 @@
-.First.lib <- function(lib,pkg)
+.onAttach <- function(lib,pkg)
 {
   ###library(Rcmdr)
   #tkdestroy(commanderWindow)

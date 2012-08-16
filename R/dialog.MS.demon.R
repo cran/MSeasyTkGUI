@@ -26,6 +26,7 @@ function()
 		if (sep == 6) sepch <- "MS.aristo"
 		if (sep == 7) sepch <- "MS.msp"
 		if (sep == 8) sepch <- "MS.nist"
+		if (sep == 9) sepch <- "MS.DataCreation.CDF"
 		
 			if (sep==1){
 				eval(choosepackage())
@@ -49,7 +50,8 @@ function()
 	sepFrame <- tkframe(tf, relief="groove", borderwidth=2)
     tkgrid(tklabel(sepFrame, text="Options:", foreground="blue"))
 	tkgrid(tkradiobutton(sepFrame, text="Load an MSeasy demo Dataset                          ", value=1, variable=sepVar), sticky="w")
-    tkgrid(tkradiobutton(sepFrame, text="MS.DataCreation (Agilent)                               ", value=2, variable=sepVar), sticky="w")
+	tkgrid(tkradiobutton(sepFrame, text="MS.DataCreation (CDF+peaklist)                               ", value=9, variable=sepVar), sticky="w")
+    tkgrid(tkradiobutton(sepFrame, text="MS.DataCreation (CDF+rteres.txt (Agilent))                   ", value=2, variable=sepVar), sticky="w")
     tkgrid(tkradiobutton(sepFrame, text="MS.DataCreation (ASCII)         ", value=3, variable=sepVar), sticky="w")
     tkgrid(tkradiobutton(sepFrame, text="MS.test.clust                   ", value=4, variable=sepVar), sticky="w")
 	tkgrid(tkradiobutton(sepFrame, text="MS.clust                        ", value=5, variable=sepVar), sticky="w")

@@ -1,0 +1,16 @@
+Change Logs MSeasyTkGUI 5.3
+
+2012-05-17 Yann GUITTON
+dialog.MS.DataCreation.user.R
+ad check.names=FALSE to read.table function in order to avoid creation of colnames with X in front of m/z
+dialog.MS.demon add a radio button for CDF+peaklist example + modification of radio button label for Agilent+CDF
+
+2012-05-12 Yann GUITTON
+dialog.MS.DataCreation.Agilent
+change outvar by outvar1 in execomp to correct an error of assign function
+for all dialog.MS.DataCreation.XXX functions
+change default outputname to "inital_DATA" formerly it was "untitled1"
+
+2012-08-15 Yann GUITTON
+zzz.R function modified because .First;Lib deprecated
+.onAttach is now used

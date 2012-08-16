@@ -35,7 +35,7 @@ function()
 	{	
 		if (tclvalue(tabnamevar) != "") {
 			tabname  <- parse(text=tclvalue(tabnamevar))[[1]]
-		} else tabname <- "untitled"
+		} else tabname <- "initial_DATA"
 
 		if (tclvalue(filenamevar) != "") {
 			filename  <- tclvalue(filenamevar)
@@ -64,10 +64,10 @@ function()
 
 		if (colClass == "auto") {
 			rdcom <- paste(tabname," <<- read.table(file='", filename, "', header=",varn,
-				", sep='",sepch,"', dec='",decsepch,"')", sep="")
+				", sep='",sepch,"', dec='",decsepch,"')", sep="", check.names=FALSE)
 		} else {
 			rdcom <- paste(tabname," <<- read.table(file='", filename, "', header=",varn,
-				", sep='",sepch,"', dec='",decsepch,"', colClasses='",colClass,"')", sep="")
+				", sep='",sepch,"', dec='",decsepch,"', colClasses='",colClass,"')", sep="", check.names=FALSE)
 		}
 	
 		
