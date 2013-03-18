@@ -12,8 +12,8 @@ manly based on code from ade4TkGUI
 \tabular{ll}{
 Package: \tab MSeasyTkGUI\cr
 Type: \tab Package\cr
-Version: \tab 5.3.1\cr
-Date: \tab 2012-08-16\cr
+Version: \tab 5.3.2\cr
+Date: \tab 2012-08-17\cr
 License: \tab GPL-2\cr
 LazyLoad: \tab yes\cr
 }

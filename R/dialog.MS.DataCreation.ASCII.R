@@ -6,7 +6,7 @@ dialog.MS.DataCreation.ASCII <-
 function()
 {
 
-	if (exists("DemoFlag")) {
+	if (exists("DemoFlag", envir=as.environment("e1"))) {
 	#
 		tkmessageBox(title="Launch Demonstration",message="To launch the demonstration as is, \n just click on the Submit button \n in the next window",icon="info",type="ok")
 
@@ -154,7 +154,7 @@ function()
 		outtrans<-trans.ASCII(path,mz)
 		path2<-paste("output",lapply(strsplit(outtrans, "output"),"[",2), sep="")
 		
-		assign(tclvalue(outvar), MS.DataCreation(path=path2,mz=mz,DataType="ASCII", N_filt=N_filt, apex=TRUE), envir=.GlobalEnv)
+		assign(tclvalue(outvar), MS.DataCreation(path=path2,mz=mz,DataType="ASCII", N_filt=N_filt, apex=TRUE), envir=as.environment("e1"))
 #Progress bar
 		    setTkProgressBar(mbox, 1, title = "100 % Done", label = "100 % Done")
 			Sys.sleep(0.10)
@@ -167,7 +167,7 @@ function()
 		outtrans<-trans.ASCII(path,mz)
 		setTkProgressBar(mbox, 0.5, title = "R progress bar", label = "Processing ...")
 		path2<-paste("output",lapply(strsplit(outtrans, "output"),"[",2), sep="")
-		assign(tclvalue(outvar), MS.DataCreation(path=path2,mz=mz,DataType="ASCII", N_filt=N_filt, apex=FALSE), envir=.GlobalEnv)
+		assign(tclvalue(outvar), MS.DataCreation(path=path2,mz=mz,DataType="ASCII", N_filt=N_filt, apex=FALSE), envir=as.environment("e1"))
 #Progress bar
 			setTkProgressBar(mbox, 1, title = "100 % Done", label = "100 % Done")
 			Sys.sleep(0.10)

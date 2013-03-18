@@ -1,4 +1,13 @@
-Change Logs MSeasyTkGUI 5.3
+Change Logs MSeasyTkGUI 5.3.3
+
+2013-03-19 Yann GUITTON
+remove all .GlobalEnv assignement
+try to use best practice for data()
+
+2013-03-18 Yann GUITTON
+Add BWigdet in System requierement section in Description file
+
+Change Logs MSeasyTkGUI 5.3.2
 
 2012-05-17 Yann GUITTON
 dialog.MS.DataCreation.user.R
@@ -14,3 +23,6 @@ change default outputname to "inital_DATA" formerly it was "untitled1"
 2012-08-15 Yann GUITTON
 zzz.R function modified because .First;Lib deprecated
 .onAttach is now used
+
+2012-08-17 Yann GUITTON
+add CITATION file

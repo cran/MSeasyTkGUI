@@ -27,7 +27,7 @@ function()
 
 			rdcom <- paste("dialog.MS.DataCreation.", sepch, "()",sep="")
 		
-			eval(parse(text=rdcom), envir=.GlobalEnv)
+			eval(parse(text=rdcom), envir=as.environment("e1"))
 		    tkdestroy(tf)
 		
 	}

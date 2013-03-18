@@ -46,8 +46,8 @@ function()
 	}
 	
 	choix <- tclvalue(tkget(tlb, numc))
-	data(list=choix)
-
+	#data(list=choix)
+	#data(list=choix, package="MSeasy", envir=parent.frame())
 	
 	tkdestroy(tf)
 	q <- tkmessageBox(icon="info", title="Data set loaded", type="ok", 

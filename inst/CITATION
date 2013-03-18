@@ -1,0 +1,18 @@
+citHeader("To cite the MSeasyTkGUI package in publications use:")
+
+citEntry(entry="article", 
+	author = "Nicole, Florence and Guitton, Yann and Courtois, Elodie and Moja, Sandrine and Legendre, Laurent and Hossaert-McKey, Martine", 
+	title = "MSeasy: unsupervised and untargeted GC-MS data processing", 
+	journal = "Bioinformatics",
+	year = "2012", 
+	doi = "10.1093/bioinformatics/bts427", 
+  
+    textVersion = paste("Nicole, Florence and Guitton, Yann and Courtois, Elodie and Moja, Sandrine and Legendre, Laurent and Hossaert-McKey, Martine:",
+	"MSeasy: unsupervised and untargeted GC-MS data processing",
+	"Bioinformatics, (2012)"))
+
+
+
+citFooter(paste("Some functions (e.g. MS.clust use 3rd",
+                 "party algorithms, see manpages and related packages",
+	         "for respective citations."))

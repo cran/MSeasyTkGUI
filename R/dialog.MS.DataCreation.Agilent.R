@@ -5,7 +5,7 @@
 dialog.MS.DataCreation.Agilent <-
 function()
 {
-	if (exists("DemoFlag")) {
+	if (exists("DemoFlag", envir=as.environment("e1"))) {
 	#
 	tkmessageBox(title="Launch Demonstration",message="To launch the demonstration as is, \n just click on the Submit button \n in the next window \n If needed examples files will be downloaded from internet \n this may take a minute",icon="info",type="ok")
 	op=options()
@@ -180,22 +180,22 @@ unlink("AgilentCDF.zip")
 	if (tclvalue(quantnfvar)==1) {
 		if (apex=="0"){
 			
-			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=TRUE, quant=TRUE), envir=.GlobalEnv)
+			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=TRUE, quant=TRUE), envir=as.environment("e1"))
 			tkmessageBox(title="check",message= "Done",icon="info",type="ok")
 		}else{
 			
-			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=FALSE, quant=TRUE), envir=.GlobalEnv)
+			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=FALSE, quant=TRUE), envir=as.environment("e1"))
 			tkmessageBox(title="Done",message= "Done",icon="info",type="ok")
 		}
 		}
 		else{
 		if (apex=="0"){
 			
-			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=TRUE, quant=FALSE), envir=.GlobalEnv)
+			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=TRUE, quant=FALSE), envir=as.environment("e1"))
 			tkmessageBox(title="check",message= "Done",icon="info",type="ok")
 		}else{
 			
-			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=FALSE, quant=FALSE), envir=.GlobalEnv)
+			assign(tclvalue(outvar1), MS.DataCreation(path=path,pathCDF=pathCDF,mz=mz,DataType="Agilent",apex=FALSE, quant=FALSE), envir=as.environment("e1"))
 			tkmessageBox(title="Done",message= "Done",icon="info",type="ok")
 		}
 		}

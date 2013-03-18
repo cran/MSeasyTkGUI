@@ -33,8 +33,8 @@ function()
 			}
 			else{
 			rdcom <- paste("dialog.", sepch, "()",sep="")
-		 data("Data_testclust","Agilent_quantF_MSclust","Agilent_quantT_MSclust","ASCII_MSclust") #load demo data sets from MSeasy
-			eval(parse(text=rdcom), envir=.GlobalEnv)
+		 #data(list=c("Data_testclust","Agilent_quantF_MSclust","Agilent_quantT_MSclust","ASCII_MSclust"), package="MSeasy" ) #load demo data sets from MSeasy
+			eval(parse(text=rdcom), envir=as.environment("e1"))
 			}
 		tkdestroy(tf)
 		

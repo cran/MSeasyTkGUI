@@ -10,13 +10,14 @@ function()
 	require(MSeasy) || stop("MSeasy support is absent")
 	require(grDevices) || stop("grDevices support is absent")
 	
+	 attach(what=NULL, name="e1")
 #	cmdlist <<- "cmdlist"
-	assign("cmdlist", "cmdlist", envir=.GlobalEnv)
+	assign("cmdlist", "cmdlist", envir=as.environment("e1"))
 #	winlist <<- 1
-	assign("winlist", 1, envir=.GlobalEnv)
+	assign("winlist", 1, envir=as.environment("e1"))
 	
-	if (exists("MSeasyTkGUIFlag")) rm("MSeasyTkGUIFlag", envir=.GlobalEnv)
-	if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+	if (exists("MSeasyTkGUIFlag", envir=as.environment("e1"))) rm("MSeasyTkGUIFlag", envir=as.environment("e1"))
+	if (exists("DemoFlag", envir=as.environment("e1"))) rm("DemoFlag", envir=as.environment("e1"))
 #
 # Main dialog window with title
 #
@@ -28,48 +29,48 @@ function()
 #
 
 demochoose<-function(){
-assign("DemoFlag", 1, envir=.GlobalEnv)
+assign("DemoFlag", 1, envir=as.environment("e1"))
 choosepackage()
 }
 
 demodialog.MS.DataCreation.CDF<-function(){
-assign("DemoFlag", 1, envir=.GlobalEnv)
+assign("DemoFlag", 1, envir=as.environment("e1"))
 dialog.MS.DataCreation.CDF()
 }
 
 demodialog.MS.DataCreation.Agilent<-function(){
-assign("DemoFlag", 1, envir=.GlobalEnv)
+assign("DemoFlag", 1, envir=as.environment("e1"))
 dialog.MS.DataCreation.Agilent()
 }
 
 demodialog.MS.DataCreation.ASCII<-function(){
-assign("DemoFlag", 1, envir=.GlobalEnv)
+assign("DemoFlag", 1, envir=as.environment("e1"))
 dialog.MS.DataCreation.ASCII()
 }
 
 demodialog.MS.test.clust<-function(){
-assign("DemoFlag", 1, envir=.GlobalEnv)
+assign("DemoFlag", 1, envir=as.environment("e1"))
 dialog.MS.test.clust()
 }
 
 demodialog.MS.clust<-function(){
-assign("DemoFlag", 1, envir=.GlobalEnv)
+assign("DemoFlag", 1, envir=as.environment("e1"))
 dialog.MS.clust()
 }
 demodialog.MS.aristo<-function(){
-assign("DemoFlag", 1, envir=.GlobalEnv)
+assign("DemoFlag", 1, envir=as.environment("e1"))
 dialog.MS.aristo()
 }
 demodialog.MS.msp<-function(){
-assign("DemoFlag", 1, envir=.GlobalEnv)
+assign("DemoFlag", 1, envir=as.environment("e1"))
 dialog.MS.msp()
 }
 demodialog.MS.nist<-function(){
-assign("DemoFlag", 1, envir=.GlobalEnv)
+assign("DemoFlag", 1, envir=as.environment("e1"))
 dialog.MS.nist()
 }
 demobutton<-function(){
-assign("DemoFlag", 1, envir=.GlobalEnv)
+assign("DemoFlag", 1, envir=as.environment("e1"))
 dialog.MS.demon()
 }
 
@@ -78,44 +79,44 @@ dialog.MS.demon()
 #
 
 nodialog.MS.step1<-function(){
-if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+if (exists("DemoFlag", envir=as.environment("e1"))) rm("DemoFlag", envir=as.environment("e1"))
 dialog.MS.step1()
 }
 nodialog.MS.step2<-function(){
-if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+if (exists("DemoFlag", envir=as.environment("e1"))) rm("DemoFlag", envir=as.environment("e1"))
 dialog.MS.step2()
 }
 nodialog.MS.step3<-function(){
-if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+if (exists("DemoFlag", envir=as.environment("e1"))) rm("DemoFlag", envir=as.environment("e1"))
 dialog.MS.step3()
 }
 nodialog.MS.DataCreation.user<-function(){
-if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+if (exists("DemoFlag", envir=as.environment("e1"))) rm("DemoFlag", envir=as.environment("e1"))
 dialog.MS.DataCreation.user()
 }
 
 nodialog.MS.DataCreation.Agilent<-function(){
-if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+if (exists("DemoFlag", envir=as.environment("e1"))) rm("DemoFlag", envir=as.environment("e1"))
 dialog.MS.DataCreation.Agilent()
 }
 
 nodialog.MS.DataCreation.CDF<-function(){
-if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+if (exists("DemoFlag", envir=as.environment("e1"))) rm("DemoFlag", envir=as.environment("e1"))
 dialog.MS.DataCreation.CDF()
 }
 
 nodialog.MS.DataCreation.ASCII<-function(){
-if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+if (exists("DemoFlag", envir=as.environment("e1"))) rm("DemoFlag", envir=as.environment("e1"))
 dialog.MS.DataCreation.ASCII()
 }
 
 nodialog.MS.test.clust<-function(){
-if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+if (exists("DemoFlag", envir=as.environment("e1"))) rm("DemoFlag", envir=as.environment("e1"))
 dialog.MS.test.clust()
 }
 
 nodialog.MS.clust<-function(){
-if (exists("DemoFlag")) rm("DemoFlag", envir=.GlobalEnv)
+if (exists("DemoFlag", envir=as.environment("e1"))) rm("DemoFlag", envir=as.environment("e1"))
 dialog.MS.clust()
 }
 
@@ -260,5 +261,7 @@ dialog.MS.clust()
 	tkpack(frame5, expand="TRUE", fill="x")
 	tkfocus(tt)
 	return(invisible())
+##on.exit
+on.exit(detach(e1))
 }
 

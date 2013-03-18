@@ -5,10 +5,10 @@
 dialog.MS.clust <-
 function()
 {
-if (exists("DemoFlag")) {
+if (exists("DemoFlag", envir=as.environment("e1"))) {
 	#
 	tkmessageBox(title="Launch Demonstration",message="To launch the demonstration, select: \n clusMeth=hierarchical \n disMeth=euclidean \n linkMeth=ward \n in the next window \n Then click on the Submit button",icon="info",type="ok")
-	eval(data(Agilent_quantF_MSclust), envir=.GlobalEnv)
+	eval(Agilent_quantF_MSclust, envir=as.environment("e1"))
 	op=options()
 	options(warn=-1)
 #
@@ -323,7 +323,7 @@ modify_command1 <- function() {
 		
 		mydudi <- eval.parent(cmd)
         #bringToTop(which=-1)
-		assign(eval(dudiname), mydudi, pos=1)
+		assign(eval(dudiname), mydudi, envir=as.environment("e1"))
 	
 	}
 

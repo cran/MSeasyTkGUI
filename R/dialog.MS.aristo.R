@@ -26,11 +26,11 @@ function()
 		tkinsert(file.entry, "end", fpath)
 	}
 	
-if (exists("DemoFlag")) {
+if (exists("DemoFlag", envir=as.environment("e1"))) {
 	#
 	tkmessageBox(title="Launch Demonstration",message="To launch the demonstration as is, \n just click on the Submit button \n in the next window",icon="info",type="ok")
 
-	#eval(data(Data_testclust), envir=.GlobalEnv)
+	#eval(data(Data_testclust), envir=as.environment("e1"))
 	op=options()
 	options(warn=-1)
 #
@@ -190,7 +190,7 @@ if (exists("DemoFlag")) {
 		Sys.sleep(0.5)
 		setTkProgressBar(mbox, .15, title = "R progress bar", label = "Please wait ...")
 		mydudi <- eval.parent(cmd)
-		assign(eval(dudiname), mydudi, pos=1)
+		assign(eval(dudiname), mydudi, envir=as.environment("e1"))
 		setTkProgressBar(mbox, 1, title = "100 % Done", label = "100% Done")
 		Sys.sleep(0.5)
 		close(mbox)
